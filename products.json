@@ -9,13 +9,16 @@
   { "id": 10, "title": "Assassin's Creed Black Flag Resynced", "plat": "PS5 Digital", "price": 60000, "img": "/images/ac-blackflag-resynced.jpg", "category": "juegos" },
   { "id": 11, "title": "Moto GP 19", "plat": "PS4 Digital", "price": 15000, "img": "/images/motogp19.jpg", "category": "juegos" },
   { "id": 12, "title": "Cuphead", "plat": "PS4 Digital", "price": 18000, "img": "/images/cuphead.jpg", "category": "juegos" },
-  { "id": 13, "title": "Tennis World Tour", "plat": "PS4 Digital", "price": 18000, "img": "/images/tennisworldtour.jpg", "category": "juegos" },
+  { "id": 13, "title": "Tennis World Tour", "plat": "PS4 Digital", "price": 18000, "img": "/images/tenisworldtour.jpg", "category": "juegos" },
   { "id": 14, "title": "The Walking Dead: The Telltale Definitive Series", "plat": "PS4 Digital", "price": 45000, "img": "/images/twd-telltale-definitive.jpg", "category": "juegos" },
   { "id": 15, "title": "Assassin's Creed Valhalla", "plat": "PS4 Digital", "price": 60000, "img": "/images/ac-valhalla.jpg", "category": "juegos" },
   { "id": 16, "title": "Bloodborne Game of the Year Edition", "plat": "PS4 Digital", "price": 18000, "img": "/images/bloodborne-goty.jpg", "category": "juegos" },
   { "id": 17, "title": "UFC 6", "plat": "PS5 Digital", "price": 62900, "img": "/images/ufc6.jpg", "category": "juegos" },
   { "id": 18, "title": "Need for Speed Heat", "plat": "PS4 Digital", "price": 51100, "img": "/images/nfs-heat.jpg", "category": "juegos" },
   { "id": 19, "title": "Bundle Antología Far Cry", "plat": "PS4 / PS5 Digital", "price": 100000, "img": "/images/bundle-farcry.jpg", "category": "juegos" },
-  { "id": 20, "title": "Soporte para celular", "plat": "Impresión 3D · PLA", "price": 8000, "img": "/images/soporte-celular.jpg", "category": "impresion3d" },
-  { "id": 21, "title": "Organizador de escritorio", "plat": "Impresión 3D · PLA", "price": 12000, "img": "/images/organizador.jpg", "category": "impresion3d" }
+  { "id": 20, "title": "Elefante articulado", "plat": "Impresión 3D · PLA", "price": 3600, "img": "/images/elefante.jpeg", "category": "impresion3d" },
+  { "id": 21, "title": "Leon articulado", "plat": "Impresión 3D · PLA", "price": 2400, "img": "/images/leon.jpeg", "category": "impresion3d" },
+  { "id": 22, "title": "Juego de equilibrio", "plat": "Impresión 3D · PLA", "price": 28900, "img": "/images/equilibrio.jpeg", "category": "impresion3d" },
+  { "id": 23, "title": "Mantarraya articulada", "plat": "Impresión 3D · PLA", "price": 2400, "img": "/images/manta.jpeg", "category": "impresion3d" },
+  { "id": 24, "title": "Mariposa articulada", "plat": "Impresión 3D · PLA", "price": 2700, "img": "/images/mariposa.jpeg", "category": "impresion3d" }
 ]

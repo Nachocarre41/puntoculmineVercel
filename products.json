@@ -16,9 +16,9 @@
   { "id": 17, "title": "UFC 6", "plat": "PS5 Digital", "price": 62900, "img": "/images/ufc6.jpg", "category": "juegos" },
   { "id": 18, "title": "Need for Speed Heat", "plat": "PS4 Digital", "price": 51100, "img": "/images/nfs-heat.jpg", "category": "juegos" },
   { "id": 19, "title": "Bundle Antología Far Cry", "plat": "PS4 / PS5 Digital", "price": 100000, "img": "/images/bundle-farcry.jpg", "category": "juegos" },
-  { "id": 20, "title": "Elefante articulado", "plat": "Impresión 3D · PLA", "price": 3600, "img": "/images/elefante.jpeg", "category": "impresion3d" },
-  { "id": 21, "title": "Leon articulado", "plat": "Impresión 3D · PLA", "price": 2400, "img": "/images/leon.jpeg", "category": "impresion3d" },
-  { "id": 22, "title": "Juego de equilibrio", "plat": "Impresión 3D · PLA", "price": 28900, "img": "/images/equilibrio.jpeg", "category": "impresion3d" },
-  { "id": 23, "title": "Mantarraya articulada", "plat": "Impresión 3D · PLA", "price": 2400, "img": "/images/manta.jpeg", "category": "impresion3d" },
-  { "id": 24, "title": "Mariposa articulada", "plat": "Impresión 3D · PLA", "price": 2700, "img": "/images/mariposa.jpeg", "category": "impresion3d" }
+  { "id": 20, "title": "Elefante articulado", "plat": "Impresión 3D · PLA", "price": 3600, "img": "/images/elefante.png", "category": "impresion3d" },
+  { "id": 21, "title": "Leon articulado", "plat": "Impresión 3D · PLA", "price": 2400, "img": "/images/leon.png", "category": "impresion3d" },
+  { "id": 22, "title": "Juego de equilibrio", "plat": "Impresión 3D · PLA", "price": 28900, "img": "/images/equilibrio.png", "category": "impresion3d" },
+  { "id": 23, "title": "Mantarraya articulada", "plat": "Impresión 3D · PLA", "price": 2400, "img": "/images/manta.png", "category": "impresion3d" },
+  { "id": 24, "title": "Mariposa articulada", "plat": "Impresión 3D · PLA", "price": 2700, "img": "/images/mariposa.png", "category": "impresion3d" }
 ]

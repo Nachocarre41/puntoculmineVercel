@@ -1,0 +1,8 @@
+{
+  "name": "tienda-digital",
+  "version": "1.0.0",
+  "description": "Tienda de juegos digitales con pago por Mercado Pago (Vercel)",
+  "dependencies": {
+    "mercadopago": "^2.0.15"
+  }
+}

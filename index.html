@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tienda Digital & Impresión 3D</title>
+<style>
+  :root {
+    --bg: #0d0d10;
+    --panel: #16161b;
+    --accent: #e50914;
+    --text: #f2f2f2;
+    --muted: #9a9aa5;
+    --border: #26262e;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    padding-bottom: 100px;
+  }
+  header {
+    padding: 24px 20px 16px;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+  }
+  header h1 {
+    font-size: 22px;
+    letter-spacing: 1px;
+  }
+  header p {
+    color: var(--muted);
+    font-size: 14px;
+    margin-top: 6px;
+  }
+
+  /* Pestañas de categoría */
+  #tabs {
+    display: flex;
+    gap: 8px;
+    padding: 14px 20px 0;
+    max-width: 900px;
+    margin: 0 auto;
+    overflow-x: auto;
+  }
+  .tab-btn {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    padding: 9px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .tab-btn.active {
+    background: var(--accent);
+    color: white;
+    border-color: var(--accent);
+  }
+
+  .section-title {
+    max-width: 900px;
+    margin: 22px auto 4px;
+    padding: 0 20px;
+    font-size: 15px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 16px;
+    padding: 12px 20px 20px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .card img {
+    width: 100%;
+    aspect-ratio: 3/4;
+    object-fit: cover;
+    background: #222;
+  }
+  .card-info {
+    padding: 10px 12px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex: 1;
+  }
+  .card-info h3 {
+    font-size: 14px;
+    line-height: 1.3;
+  }
+  .card-info .plat {
+    font-size: 11px;
+    color: var(--muted);
+  }
+  .card-info .price {
+    font-size: 16px;
+    font-weight: 700;
+    margin-top: auto;
+  }
+  .card-info button {
+    background: var(--accent);
+    color: white;
+    border: none;
+    padding: 8px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 6px;
+  }
+  .card-info button:active { opacity: 0.8; }
+
+  #cart-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--panel);
+    border-top: 1px solid var(--border);
+    padding: 12px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  #cart-bar .info { font-size: 13px; color: var(--muted); }
+  #cart-bar .total { font-size: 17px; font-weight: 700; }
+  #cart-bar button {
+    background: var(--accent);
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  #cart-bar button:disabled {
+    background: #444;
+    cursor: not-allowed;
+  }
+
+  #cart-panel {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    display: none;
+    align-items: flex-end;
+    justify-content: center;
+    z-index: 10;
+  }
+  #cart-panel.open { display: flex; }
+  #cart-content {
+    background: var(--panel);
+    width: 100%;
+    max-width: 480px;
+    border-radius: 16px 16px 0 0;
+    padding: 20px;
+    max-height: 80vh;
+    overflow-y: auto;
+  }
+  #cart-content h2 { margin-bottom: 14px; font-size: 18px; }
+  .cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+    gap: 10px;
+  }
+  .cart-item .name { flex: 1; }
+  .qty-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .qty-controls button {
+    background: var(--border);
+    color: white;
+    border: none;
+    width: 26px;
+    height: 26px;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  #cart-content .close-btn {
+    display: block;
+    margin: 16px auto 0;
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    padding: 10px 20px;
+    border-radius: 8px;
+  }
+  #pay-btn {
+    width: 100%;
+    background: var(--accent);
+    color: white;
+    border: none;
+    padding: 14px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 15px;
+    margin-top: 14px;
+    cursor: pointer;
+  }
+  #pay-btn:disabled { background: #444; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🎮 TU TIENDA</h1>
+  <p>Juegos digitales · Impresión 3D</p>
+</header>
+
+<div id="tabs"></div>
+<div id="sections"></div>
+
+<div id="cart-bar">
+  <div class="info"><span id="cart-count">0</span> items · <span class="total" id="cart-total">$0</span></div>
+  <button id="open-cart">Ver carrito</button>
+</div>
+
+<div id="cart-panel">
+  <div id="cart-content">
+    <h2>Tu carrito</h2>
+    <div id="cart-items"></div>
+    <div style="display:flex; justify-content:space-between; margin-top:14px; font-size:16px; font-weight:700;">
+      <span>Total</span>
+      <span id="cart-total-2">$0</span>
+    </div>
+    <button id="pay-btn">Pagar con Mercado Pago</button>
+    <button class="close-btn" id="close-cart">Cerrar</button>
+  </div>
+</div>
+
+<script>
+// ===================================================================
+// CATEGORÍAS: agregá o sacá categorías acá. El "id" es interno,
+// el "label" es lo que se ve en la pestaña.
+// ===================================================================
+const categories = [
+  { id: "todos", label: "Todos" },
+  { id: "juegos", label: "🎮 Juegos" },
+  { id: "impresion3d", label: "🖨️ Impresión 3D" }
+];
+
+// ===================================================================
+// CATÁLOGO: ahora los productos NO están acá. Se cargan automáticamente
+// desde el archivo "products.json" (misma carpeta). Para agregar,
+// borrar o editar productos, se edita SOLO ese archivo.
+// ===================================================================
+let products = [];
+let cart = {};
+let activeTab = "todos";
+
+async function loadProducts() {
+  try {
+    const res = await fetch('/products.json');
+    products = await res.json();
+  } catch (err) {
+    console.error('No se pudo cargar el catálogo', err);
+    products = [];
+  }
+  renderTabs();
+  renderSections();
+  updateCartUI();
+}
+
+function renderTabs() {
+  document.getElementById('tabs').innerHTML = categories.map(c => `
+    <button class="tab-btn ${c.id === activeTab ? 'active' : ''}" onclick="setTab('${c.id}')">
+      ${c.label}
+    </button>
+  `).join('');
+}
+
+function setTab(id) {
+  activeTab = id;
+  renderTabs();
+  renderSections();
+}
+
+function renderSections() {
+  const container = document.getElementById('sections');
+
+  // Si eligió "Todos", mostramos una sección por cada categoría real.
+  // Si eligió una categoría puntual, mostramos solo esa, sin título repetido.
+  const cats = activeTab === "todos"
+    ? categories.filter(c => c.id !== "todos")
+    : categories.filter(c => c.id === activeTab);
+
+  container.innerHTML = cats.map(cat => {
+    const items = products.filter(p => p.category === cat.id);
+    if (items.length === 0) return '';
+    return `
+      <div class="section-title">${cat.label}</div>
+      <div class="grid">
+        ${items.map(p => `
+          <div class="card">
+            <img src="${p.img}" alt="${p.title}">
+            <div class="card-info">
+              <h3>${p.title}</h3>
+              <span class="plat">${p.plat}</span>
+              <span class="price">$${p.price.toLocaleString('es-AR')}</span>
+              <button onclick="addToCart(${p.id})">Agregar</button>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    `;
+  }).join('');
+}
+
+function addToCart(id) {
+  cart[id] = (cart[id] || 0) + 1;
+  updateCartUI();
+}
+
+function changeQty(id, delta) {
+  cart[id] = (cart[id] || 0) + delta;
+  if (cart[id] <= 0) delete cart[id];
+  updateCartUI();
+}
+
+function getCartItems() {
+  return Object.entries(cart).map(([id, qty]) => {
+    const p = products.find(p => p.id === Number(id));
+    return { ...p, quantity: qty };
+  });
+}
+
+function updateCartUI() {
+  const items = getCartItems();
+  const totalItems = items.reduce((sum, i) => sum + i.quantity, 0);
+  const totalPrice = items.reduce((sum, i) => sum + i.quantity * i.price, 0);
+
+  document.getElementById('cart-count').textContent = totalItems;
+  document.getElementById('cart-total').textContent = '$' + totalPrice.toLocaleString('es-AR');
+  document.getElementById('cart-total-2').textContent = '$' + totalPrice.toLocaleString('es-AR');
+
+  document.getElementById('cart-items').innerHTML = items.length
+    ? items.map(i => `
+        <div class="cart-item">
+          <span class="name">${i.title}</span>
+          <div class="qty-controls">
+            <button onclick="changeQty(${i.id}, -1)">-</button>
+            <span>${i.quantity}</span>
+            <button onclick="changeQty(${i.id}, 1)">+</button>
+          </div>
+          <span>$${(i.price * i.quantity).toLocaleString('es-AR')}</span>
+        </div>
+      `).join('')
+    : '<p style="color:#9a9aa5; font-size:14px;">Todavía no agregaste nada.</p>';
+
+  document.getElementById('pay-btn').disabled = items.length === 0;
+}
+
+document.getElementById('open-cart').onclick = () => {
+  document.getElementById('cart-panel').classList.add('open');
+};
+document.getElementById('close-cart').onclick = () => {
+  document.getElementById('cart-panel').classList.remove('open');
+};
+
+document.getElementById('pay-btn').onclick = async () => {
+  const items = getCartItems();
+  if (items.length === 0) return;
+
+  const btn = document.getElementById('pay-btn');
+  btn.disabled = true;
+  btn.textContent = 'Generando pago...';
+
+  try {
+    const res = await fetch('/api/crear-preferencia', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ items })
+    });
+    const data = await res.json();
+
+    if (data.init_point) {
+      window.location.href = data.init_point;
+    } else {
+      alert('Hubo un problema generando el pago. Intentá de nuevo.');
+      btn.disabled = false;
+      btn.textContent = 'Pagar con Mercado Pago';
+    }
+  } catch (err) {
+    alert('No se pudo conectar con el servidor.');
+    btn.disabled = false;
+    btn.textContent = 'Pagar con Mercado Pago';
+  }
+};
+
+loadProducts();
+</script>
+
+</body>
+</html>

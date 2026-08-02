@@ -1,0 +1,21 @@
+[
+  { "id": 1, "title": "Resident Evil Requiem", "plat": "PS5 Digital", "price": 63900, "img": "/images/RER.jpg", "category": "juegos" },
+  { "id": 2, "title": "Grand Theft Auto VI", "plat": "PS5 Digital", "price": 63900, "img": "/images/gta_vi_ps5_cover_iii_by_domestrialization_dgjcfvn-fullview.jpg", "category": "juegos" },
+  { "id": 3, "title": "EA Sports FC 26", "plat": "PS5 Digital", "price": 18000, "img": "/images/fc26.jpg", "category": "juegos" },
+  { "id": 4, "title": "Mortal Shell 2", "plat": "PS5 Digital", "price": 68000, "img": "/images/mortalsh.jpg", "category": "juegos" },
+  { "id": 5, "title": "WWE 2K26", "plat": "PS5 Digital", "price": 65900, "img": "/images/wwe2k26.jpg", "category": "juegos" },
+  { "id": 6, "title": "Red Dead Redemption 2", "plat": "PS4 Digital", "price": 58500, "img": "/images/reddead2.jpg", "category": "juegos" },
+  { "id": 7, "title": "Mortal Kombat 1", "plat": "PS5 Digital", "price": 55600, "img": "/images/mortalk1.jpg", "category": "juegos" },
+  { "id": 10, "title": "Assassin's Creed Black Flag Resynced", "plat": "PS5 Digital", "price": 60000, "img": "/images/ac-blackflag-resynced.jpg", "category": "juegos" },
+  { "id": 11, "title": "Moto GP 19", "plat": "PS4 Digital", "price": 15000, "img": "/images/motogp19.jpg", "category": "juegos" },
+  { "id": 12, "title": "Cuphead", "plat": "PS4 Digital", "price": 18000, "img": "/images/cuphead.jpg", "category": "juegos" },
+  { "id": 13, "title": "Tennis World Tour", "plat": "PS4 Digital", "price": 18000, "img": "/images/tennisworldtour.jpg", "category": "juegos" },
+  { "id": 14, "title": "The Walking Dead: The Telltale Definitive Series", "plat": "PS4 Digital", "price": 45000, "img": "/images/twd-telltale-definitive.jpg", "category": "juegos" },
+  { "id": 15, "title": "Assassin's Creed Valhalla", "plat": "PS4 Digital", "price": 60000, "img": "/images/ac-valhalla.jpg", "category": "juegos" },
+  { "id": 16, "title": "Bloodborne Game of the Year Edition", "plat": "PS4 Digital", "price": 18000, "img": "/images/bloodborne-goty.jpg", "category": "juegos" },
+  { "id": 17, "title": "UFC 6", "plat": "PS5 Digital", "price": 62900, "img": "/images/ufc6.jpg", "category": "juegos" },
+  { "id": 18, "title": "Need for Speed Heat", "plat": "PS4 Digital", "price": 51100, "img": "/images/nfs-heat.jpg", "category": "juegos" },
+  { "id": 19, "title": "Bundle Antología Far Cry", "plat": "PS4 / PS5 Digital", "price": 100000, "img": "/images/bundle-farcry.jpg", "category": "juegos" },
+  { "id": 20, "title": "Soporte para celular", "plat": "Impresión 3D · PLA", "price": 8000, "img": "/images/soporte-celular.jpg", "category": "impresion3d" },
+  { "id": 21, "title": "Organizador de escritorio", "plat": "Impresión 3D · PLA", "price": 12000, "img": "/images/organizador.jpg", "category": "impresion3d" }
+]

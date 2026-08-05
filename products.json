@@ -20,7 +20,7 @@
   { "id": 21, "title": "Leon articulado", "plat": "Impresión 3D · PLA", "price": 2400, "img": "/images/leon.png", "category": "impresion3d" },
   { "id": 22, "title": "Juego de equilibrio", "plat": "Impresión 3D · PLA", "price": 28900, "img": "/images/equilibrio.png", "category": "impresion3d" },
   { "id": 23, "title": "Mantarraya articulada", "plat": "Impresión 3D · PLA", "price": 2400, "img": "/images/manta.png", "category": "impresion3d" },
-  { "id": 24, "title": "Dinosaurio articulado", "plat": "Impresión 3D · PLA", "price": 5700, "img": "/images/dino.png", "category": "impresion3d" },
+  { "id": 24, "title": "Dinosaurio articulado", "plat": "Impresión 3D · PLA", "price": 3500, "img": "/images/dino.png", "category": "impresion3d" },
   { "id": 24, "title": "Tigre articulado", "plat": "Impresión 3D · PLA", "price": 2700, "img": "/images/tigre.png", "category": "impresion3d" },
   { "id": 24, "title": "Tiburon articulado", "plat": "Impresión 3D · PLA", "price": 4000, "img": "/images/tiburon.png", "category": "impresion3d" }
 ]

@@ -22,5 +22,11 @@
   { "id": 23, "title": "Mantarraya articulada", "plat": "Impresión 3D · PLA", "price": 2400, "img": "/images/manta.png", "category": "impresion3d" },
   { "id": 24, "title": "Dinosaurio articulado", "plat": "Impresión 3D · PLA", "price": 3500, "img": "/images/dino.png", "category": "impresion3d" },
   { "id": 24, "title": "Tigre articulado", "plat": "Impresión 3D · PLA", "price": 2700, "img": "/images/tigre.png", "category": "impresion3d" },
-  { "id": 24, "title": "Tiburon articulado", "plat": "Impresión 3D · PLA", "price": 4000, "img": "/images/tiburon.png", "category": "impresion3d" }
+  { "id": 24, "title": "Tiburon articulado", "plat": "Impresión 3D · PLA", "price": 4000, "img": "/images/tiburon.png", "category": "impresion3d" },
+  { "id": 24, "title": "Pajaro articulado", "plat": "Impresión 3D · PLA", "price": 4500, "img": "/images/pajaro.jpeg", "category": "impresion3d" },
+  { "id": 24, "title": "Pizza fidget", "plat": "Impresión 3D · PLA", "price": 25000, "img": "/images/pizza.jpeg", "category": "impresion3d" },
+  { "id": 24, "title": "Cafe que se derrama", "plat": "Impresión 3D · PLA", "price": 14900, "img": "/images/cafe.jpeg", "category": "impresion3d" },
+  { "id": 24, "title": "Set pastas fidget", "plat": "Impresión 3D · PLA", "price": 34590, "img": "/images/pastas.jpeg", "category": "impresion3d" },
+  { "id": 24, "title": "Choclo antiestrés", "plat": "Impresión 3D · PLA", "price": 13800, "img": "/images/choclo.jpeg", "category": "impresion3d" },
+  { "id": 24, "title": "Huevo de juguete con cáscara", "plat": "Impresión 3D · PLA", "price": 5900, "img": "/images/huevo.jpeg", "category": "impresion3d" }
 ]

@@ -15,8 +15,52 @@
 <body>
   <div class="box">
     <h1>✅ ¡Pago aprobado!</h1>
-    <p>Gracias por tu compra. En breve recibís tus juegos por WhatsApp o email.</p>
+    <p id="mensaje">Gracias por tu compra. En breve recibís tus juegos por WhatsApp o email.</p>
+    <p id="envio-status" style="display:none; font-size:13px;"></p>
     <a href="/">Volver a la tienda</a>
   </div>
+
+  <script>
+    // Si había un envío pendiente (guardado antes de ir a pagar), lo creamos ahora en Andreani
+    const datosEnvio = sessionStorage.getItem('datosEnvio');
+
+    if (datosEnvio) {
+      const { comprador, items, valorDeclarado } = JSON.parse(datosEnvio);
+      const statusEl = document.getElementById('envio-status');
+      statusEl.style.display = 'block';
+      statusEl.textContent = 'Generando tu envío...';
+
+      const bultoDescripcion = items
+        .filter(i => i.category === 'impresion3d')
+        .map(i => i.title)
+        .join(', ');
+
+      fetch('/api/crear-envio-zipnova', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          comprador,
+          pedidoId: `pedido-${Date.now()}`,
+          valorDeclarado,
+          bultoDescripcion
+        })
+      })
+        .then(res => res.json())
+        .then(data => {
+          if (data.ok) {
+            statusEl.textContent = '📦 Envío generado con ' + (data.transportista || 'transportista asignado') + '. ' + (data.tracking ? 'Seguimiento: ' + data.tracking : '');
+          } else {
+            statusEl.textContent = 'Tu pago se acreditó. El envío se coordina manualmente (te contactamos).';
+            console.error('Error creando envío:', data);
+          }
+          sessionStorage.removeItem('datosEnvio');
+        })
+        .catch(err => {
+          statusEl.textContent = 'Tu pago se acreditó. El envío se coordina manualmente (te contactamos).';
+          console.error(err);
+          sessionStorage.removeItem('datosEnvio');
+        });
+    }
+  </script>
 </body>
 </html>

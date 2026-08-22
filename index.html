@@ -243,6 +243,64 @@
   <div id="cart-content">
     <h2>Tu carrito</h2>
     <div id="cart-items"></div>
+    <div id="shipping-selector" style="display:none; margin-top:14px; padding-top:14px; border-top:1px solid var(--border);">
+      <p style="font-size:13px; color:var(--muted); margin-bottom:8px;">¿Cómo lo recibís?</p>
+      <label style="display:flex; align-items:center; gap:8px; font-size:14px; padding:6px 0; cursor:pointer;">
+        <input type="radio" name="shipping" value="retiro" checked onchange="setShipping('retiro')">
+        Retiro en persona <span style="color:var(--muted); margin-left:auto;">Gratis</span>
+      </label>
+      <label style="display:flex; align-items:center; gap:8px; font-size:14px; padding:6px 0; cursor:pointer;">
+        <input type="radio" name="shipping" value="envio" onchange="setShipping('envio')">
+        Envío <span style="color:var(--muted); margin-left:auto;" id="shipping-price-label"></span>
+      </label>
+    </div>
+
+    <div id="address-form" style="display:none; margin-top:12px; display:flex; flex-direction:column; gap:8px;">
+      <p style="font-size:13px; color:var(--muted);">Datos de envío</p>
+      <input type="text" id="addr-nombre" placeholder="Nombre y apellido" style="padding:10px; border-radius:6px; border:1px solid var(--border); background:#0d0d10; color:white;">
+      <input type="email" id="addr-email" placeholder="Email" style="padding:10px; border-radius:6px; border:1px solid var(--border); background:#0d0d10; color:white;">
+      <input type="tel" id="addr-telefono" placeholder="Teléfono" style="padding:10px; border-radius:6px; border:1px solid var(--border); background:#0d0d10; color:white;">
+      <div style="display:flex; gap:8px;">
+        <input type="text" id="addr-calle" placeholder="Calle" style="flex:2; padding:10px; border-radius:6px; border:1px solid var(--border); background:#0d0d10; color:white;">
+        <input type="text" id="addr-numero" placeholder="Número" style="flex:1; padding:10px; border-radius:6px; border:1px solid var(--border); background:#0d0d10; color:white;">
+      </div>
+      <div style="display:flex; gap:8px;">
+        <input type="text" id="addr-piso" placeholder="Piso (opcional)" style="flex:1; padding:10px; border-radius:6px; border:1px solid var(--border); background:#0d0d10; color:white;">
+        <input type="text" id="addr-depto" placeholder="Depto (opcional)" style="flex:1; padding:10px; border-radius:6px; border:1px solid var(--border); background:#0d0d10; color:white;">
+      </div>
+      <input type="text" id="addr-localidad" placeholder="Localidad" style="padding:10px; border-radius:6px; border:1px solid var(--border); background:#0d0d10; color:white;">
+      <div style="display:flex; gap:8px;">
+        <select id="addr-provincia" style="flex:1; padding:10px; border-radius:6px; border:1px solid var(--border); background:#0d0d10; color:white;">
+          <option value="">Provincia</option>
+          <option value="A">Salta</option>
+          <option value="B">Buenos Aires</option>
+          <option value="C">CABA</option>
+          <option value="D">San Luis</option>
+          <option value="E">Entre Ríos</option>
+          <option value="F">La Rioja</option>
+          <option value="G">Santiago del Estero</option>
+          <option value="H">Chaco</option>
+          <option value="J">San Juan</option>
+          <option value="K">Catamarca</option>
+          <option value="L">La Pampa</option>
+          <option value="M">Mendoza</option>
+          <option value="N">Misiones</option>
+          <option value="P">Formosa</option>
+          <option value="Q">Neuquén</option>
+          <option value="R">Río Negro</option>
+          <option value="S">Santa Fe</option>
+          <option value="T">Tucumán</option>
+          <option value="U">Chubut</option>
+          <option value="V">Tierra del Fuego</option>
+          <option value="W">Corrientes</option>
+          <option value="X">Córdoba</option>
+          <option value="Y">Jujuy</option>
+          <option value="Z">Santa Cruz</option>
+        </select>
+        <input type="text" id="addr-cp" placeholder="Código Postal" style="flex:1; padding:10px; border-radius:6px; border:1px solid var(--border); background:#0d0d10; color:white;">
+      </div>
+    </div>
+
     <div style="display:flex; justify-content:space-between; margin-top:14px; font-size:16px; font-weight:700;">
       <span>Total</span>
       <span id="cart-total-2">$0</span>
@@ -271,6 +329,10 @@ const categories = [
 let products = [];
 let cart = {};
 let activeTab = "todos";
+let shippingMethod = "retiro"; // "retiro" o "envio"
+
+// 👉 Cambiá este número por el costo real de tu envío
+const COSTO_ENVIO = 3500;
 
 async function loadProducts() {
   try {
@@ -335,6 +397,15 @@ function addToCart(id) {
   updateCartUI();
 }
 
+function setShipping(method) {
+  shippingMethod = method;
+  updateCartUI();
+}
+
+function cartHasPhysicalItems(items) {
+  return items.some(i => i.category === "impresion3d");
+}
+
 function changeQty(id, delta) {
   cart[id] = (cart[id] || 0) + delta;
   if (cart[id] <= 0) delete cart[id];
@@ -351,7 +422,21 @@ function getCartItems() {
 function updateCartUI() {
   const items = getCartItems();
   const totalItems = items.reduce((sum, i) => sum + i.quantity, 0);
-  const totalPrice = items.reduce((sum, i) => sum + i.quantity * i.price, 0);
+  const subtotal = items.reduce((sum, i) => sum + i.quantity * i.price, 0);
+
+  const hasPhysical = cartHasPhysicalItems(items);
+  const shippingCost = (hasPhysical && shippingMethod === "envio") ? COSTO_ENVIO : 0;
+  const totalPrice = subtotal + shippingCost;
+
+  // Mostrar el selector de envío solo si hay productos físicos en el carrito
+  const shippingSelector = document.getElementById('shipping-selector');
+  shippingSelector.style.display = hasPhysical ? 'block' : 'none';
+  document.getElementById('shipping-price-label').textContent = '$' + COSTO_ENVIO.toLocaleString('es-AR');
+  if (!hasPhysical) shippingMethod = "retiro"; // si saca los productos físicos, resetea
+
+  // Mostrar el formulario de dirección solo si corresponde envío
+  document.getElementById('address-form').style.display =
+    (hasPhysical && shippingMethod === "envio") ? "flex" : "none";
 
   document.getElementById('cart-count').textContent = totalItems;
   document.getElementById('cart-total').textContent = '$' + totalPrice.toLocaleString('es-AR');
@@ -385,6 +470,49 @@ document.getElementById('pay-btn').onclick = async () => {
   const items = getCartItems();
   if (items.length === 0) return;
 
+  // Si corresponde envío, lo agregamos como un ítem más para que se sume al total real
+  const hasPhysical = cartHasPhysicalItems(items);
+  const finalItems = [...items];
+  let comprador = null;
+
+  if (hasPhysical && shippingMethod === "envio") {
+    finalItems.push({
+      title: "Costo de envío",
+      quantity: 1,
+      price: COSTO_ENVIO
+    });
+
+    // Recolectamos y validamos los datos de dirección
+    comprador = {
+      nombre: document.getElementById('addr-nombre').value.trim(),
+      email: document.getElementById('addr-email').value.trim(),
+      telefono: document.getElementById('addr-telefono').value.trim(),
+      calle: document.getElementById('addr-calle').value.trim(),
+      numero: document.getElementById('addr-numero').value.trim(),
+      piso: document.getElementById('addr-piso').value.trim(),
+      depto: document.getElementById('addr-depto').value.trim(),
+      localidad: document.getElementById('addr-localidad').value.trim(),
+      provincia: document.getElementById('addr-provincia').value,
+      codigoPostal: document.getElementById('addr-cp').value.trim(),
+    };
+
+    if (!comprador.nombre || !comprador.email || !comprador.calle || !comprador.numero ||
+        !comprador.localidad || !comprador.provincia || !comprador.codigoPostal) {
+      alert('Completá todos los datos de envío obligatorios (nombre, email, calle, número, localidad, provincia y código postal).');
+      return;
+    }
+
+    // Guardamos los datos de envío para usarlos en la página de éxito
+    // (Mercado Pago nos redirige ahí después del pago, y ahí generamos el envío en Andreani)
+    sessionStorage.setItem('datosEnvio', JSON.stringify({
+      comprador,
+      items: finalItems,
+      valorDeclarado: items.reduce((sum, i) => i.category === 'impresion3d' ? sum + i.price * i.quantity : sum, 0),
+    }));
+  } else {
+    sessionStorage.removeItem('datosEnvio');
+  }
+
   const btn = document.getElementById('pay-btn');
   btn.disabled = true;
   btn.textContent = 'Generando pago...';
@@ -393,7 +521,7 @@ document.getElementById('pay-btn').onclick = async () => {
     const res = await fetch('/api/crear-preferencia', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ items })
+      body: JSON.stringify({ items: finalItems })
     });
     const data = await res.json();
 
